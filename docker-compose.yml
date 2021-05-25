@@ -1,0 +1,20 @@
+version: "2.1"
+services:
+  php:
+    image: wakongka/php
+    container_name: php
+    expose:
+      - 9501
+    volumes:
+      - ./services/php/php.ini:/usr/local/etc/php/php.ini:ro
+      - ./services/php/php-fpm.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+      - /log:/var/log/php
+      - /composer:/tmp/composer
+      - /www:/www
+    restart: unless-stopped
+    cap_add:
+      - SYS_PTRACE
+    networks:
+            php:
+networks:
+  php:
